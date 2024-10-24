@@ -1,0 +1,15 @@
+{ 
+ "channel_names": {
+  "0": "R",
+  "1": "G", 
+  "2": "B"
+}, 
+
+ "labels": { 
+   "background": 0,
+   "root": 1
+ }, 
+ "numTraining": 23, 
+ "file_ending": ".tif",
+ "dataset_name": "RhizoNet dataset"
+ }

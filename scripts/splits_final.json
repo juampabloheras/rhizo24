@@ -1,0 +1,27 @@
+[
+    {
+        "train": [
+            "rhizo_005",
+            "rhizo_021",
+            "rhizo_012",
+            "rhizo_003",
+            "rhizo_004",
+            "rhizo_018",
+            "rhizo_013",
+            "rhizo_019",
+            "rhizo_017",
+            "rhizo_002",
+            "rhizo_010",
+            "rhizo_022",
+            "rhizo_008",
+            "rhizo_011",
+            "rhizo_015",
+            "rhizo_020",
+            "rhizo_006"
+        ],
+        "val": [
+            "rhizo_000",
+            "rhizo_001"
+        ]
+    }
+]
