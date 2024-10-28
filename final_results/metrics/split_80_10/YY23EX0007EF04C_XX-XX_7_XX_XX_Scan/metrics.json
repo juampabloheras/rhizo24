@@ -1,0 +1,10 @@
+{
+    "image_path": "train/nnUNet_raw/Dataset111_Rhizo24/imagesTr/rhizo_010_0000.tif",
+    "preds_path": "final_results/nnunet_preds/split_80_10/rhizo_010.tif",
+    "label_path": "train/nnUNet_raw/Dataset111_Rhizo24/labelsTr/rhizo_010.tif",
+    "accuracy": 0.83370060232114,
+    "precision": 1.0,
+    "IoU": 0.83370060232114,
+    "Dice": 0.9093094055439833,
+    "recall": 0.83370060232114
+}

@@ -3,6 +3,8 @@ import numpy as np
 import glob
 import subprocess
 import argparse
+import json
+import matplotlib.pyplot as plt
 
 
 def timing_decorator(func):
@@ -100,7 +102,101 @@ def nnUNet_name_conversion(data_dir='data', output_dir='train/nnUNet_raw'):
     with open(file_path, 'w') as json_file:
         json.dump(names_dict, json_file, indent=4) 
 
-def vis(plots_dir = 'plts/', renamed_data_dir = '/pscratch/sd/j/jehr/rhizo24/rhizonet_images'):
+
+def process_and_visualize_subjects(
+    image_save_path, label_save_path, preds_save_path, name_conversion_path, results_dir
+):
+    import os
+    import glob
+    import json
+    from tqdm import tqdm
+    import numpy as np
+    from PIL import Image
+    import matplotlib.pyplot as plt
+    from sklearn.metrics import accuracy_score, precision_score, jaccard_score, f1_score, recall_score
+    from matplotlib.colors import ListedColormap    
+    # Load name conversion dictionary
+    with open(name_conversion_path, 'r') as file:
+        name_dict = json.load(file)
+
+    # Get the number of subjects
+    images_paths = sorted(glob.glob(os.path.join(image_save_path, "*.tif*")))
+    labels_paths = sorted(glob.glob(os.path.join(label_save_path, "*.tif*")))
+    preds_paths = sorted(glob.glob(os.path.join(preds_save_path, "*.tif*")))
+    num_subjects = len(images_paths)
+
+    # Process each subject
+    for subject_no in tqdm(range(num_subjects)):
+        image = np.array(Image.open(images_paths[subject_no]))
+        label = np.array(Image.open(labels_paths[subject_no]))
+        pred = np.array(Image.open(preds_paths[subject_no]))
+
+        # Filter label and prediction to only include relevant class
+        filtered_label = 1
+        label = np.where((label == filtered_label), label, 0)
+        pred = np.where((pred == filtered_label), pred, 0)
+
+        # Calculate metrics only where label is non-zero
+        nonzero_mask = label != 0
+        accuracy = accuracy_score(label[nonzero_mask].flatten(), pred[nonzero_mask].flatten())
+        precision = precision_score(label[nonzero_mask].flatten(), pred[nonzero_mask].flatten())
+        iou = jaccard_score(label[nonzero_mask].flatten(), pred[nonzero_mask].flatten())
+        dice = f1_score(label[nonzero_mask].flatten(), pred[nonzero_mask].flatten())
+        recall = recall_score(label[nonzero_mask].flatten(), pred[nonzero_mask].flatten())
+
+        # Visualize images, labels, predictions, and differences
+        label = label.astype(np.int16)
+        pred = pred.astype(np.int16)
+        diff = pred - label
+
+        fig, axes = plt.subplots(1, 4, figsize=(15, 5))
+        axes[0].imshow(image)
+        axes[0].set_title("Image")
+        axes[0].axis('off')
+
+        axes[1].imshow(label, cmap='gray')
+        axes[1].set_title("Label")
+        axes[1].axis('off')
+
+        axes[2].imshow(pred, cmap='gray')
+        axes[2].set_title("Prediction")
+        axes[2].axis('off')
+
+        cmap = ListedColormap(['red', 'black', 'white'])
+        cax3 = axes[3].imshow(diff, cmap=cmap, vmin=-1, vmax=1)
+        axes[3].set_title("Difference (Prediction - Label)")
+        axes[3].axis('off')
+        cbar3 = fig.colorbar(cax3, ax=axes[3], orientation='vertical')
+        cbar3.set_ticks([-1, 0, 1])
+        cbar3.set_ticklabels(['-1', '0', '1'])
+
+        plt.tight_layout()
+
+        # Save the visualization and metrics
+        subject_name = preds_paths[subject_no].split('_')[-1].split('.')[0]
+        rhizonet_name = name_dict.get(subject_name, f"subject_{subject_no}")
+        subject_save_dir = os.path.join(results_dir, rhizonet_name)
+        os.makedirs(subject_save_dir, exist_ok=True)
+
+        # Save the visualization image
+        plt.savefig(os.path.join(subject_save_dir, 'results.png'))
+        plt.close()
+
+        # Save metrics as JSON
+        metrics = {
+            'image_path': images_paths[subject_no],
+            'preds_path': preds_paths[subject_no],
+            'label_path': labels_paths[subject_no],
+            'accuracy': accuracy,
+            'precision': precision,
+            'IoU': iou,
+            'Dice': dice,
+            'recall': recall,
+        }
+        with open(os.path.join(subject_save_dir, 'metrics.json'), 'w') as file:
+            json.dump(metrics, file, indent=4)
+
+def vis(plots_dir = 'plts/', renamed_data_dir = 'renamed_rhizonet_images/'):
     '''
     Function to visualize renamed data. Useful for debugging.
     '''
@@ -147,16 +243,6 @@ def vis(plots_dir = 'plts/', renamed_data_dir = '/pscratch/sd/j/jehr/rhizo24/rhi
 
 
 
-
-
-@timing_decorator
-def main():
-    data_dir = '/pscratch/sd/j/jehr/rhizo24/data'
-    nnUNet_name_conversion(data_dir)
-
-
-
-
 def parse_args():
     parser = argparse.ArgumentParser(description="Run a specified function with optional arguments.")
     parser.add_argument('function_name', type=str, help="The function to run")
@@ -166,9 +252,9 @@ def parse_args():
 if __name__ == "__main__":
     '''
     Example usage of a function in this script:
-        python3 train.py train_seg_synth arg1 arg2
-        python3 train.py eval arg1 arg2 arg3
-        python3 train.py get_wandb_config
+        python3 train.py train arg1 arg2       <-- For function "train" and arguments arg1, arg2
+        python3 train.py eval arg1 arg2 arg3   <-- For function "eval" and arguments arg1, arg2, arg3
+        python3 train.py sample_fn      <-- For function "sample_fn" with no arguments
     NOTE: all args are passed as strings to the function called.
     '''
 
