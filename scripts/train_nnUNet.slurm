@@ -1,4 +1,18 @@
 #!/bin/bash
+#SBATCH -N 1 
+#SBATCH -C gpu  
+#SBATCH -G 1
+#SBATCH -q debug  
+#SBATCH -J train-nnunet
+#SBATCH --mail-type=ALL  
+#SBATCH --time=00:30:00  
+#SBATCH -A m4055 
+#SBATCH --error=slurm_error.txt
+#SBATCH --output=slurm_output.txt
+
+cd "$(dirname "$0")"
+
+#!/bin/bash
 source ~/.bashrc
 conda activate nnunet_env
 cd "$(dirname "$0")"
@@ -29,4 +43,6 @@ echo "Preprocessing successful!"
 cp splits_final.json $PREPROCESSED_DATA_PATH
 
 
-CUDA_VISIBLE_DEVICES=0 nnUNetv2_train -p nnUNetResEncUNetMPlans  --c $DATASET_ID 2d 0 -tr nnUNetTrainer_100epochs
+CUDA_VISIBLE_DEVICES=0 nnUNetv2_train -p nnUNetResEncUNetMPlans  --c $DATASET_ID 2d 0
+
+
