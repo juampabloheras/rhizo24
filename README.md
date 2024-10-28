@@ -30,6 +30,5 @@ To verify a successful installation, including checking CUDA compatibility, run 
 python -c "import nnunet; import torch; print('nnUNet successfully imported'); print('CUDA available:', torch.cuda.is_available())"
 ```
 
-This command will confirm that `nnUNet` was imported successfully and whether CUDA is available for PyTorch.
+This command will confirm that `nnUNet` was imported successfully and whether CUDA is available for PyTorch. If CUDA available: False, it may be due to an incompatible CUDA toolkit version; ensure that your installed CUDA version matches the version supported by your PyTorch installation by checking the [PyTorch Get Started Guide](https://pytorch.org/get-started/previous-versions/) for compatible combinations of PyTorch and CUDA versions.
 
-This completes the setup! You’re now ready to start using the project and `nnUNet`.
