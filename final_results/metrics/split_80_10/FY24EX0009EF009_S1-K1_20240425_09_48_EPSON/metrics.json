@@ -2,9 +2,9 @@
     "image_path": "train/nnUNet_raw/Dataset111_Rhizo24/imagesTr/rhizo_004_0000.tif",
     "preds_path": "final_results/nnunet_preds/split_80_10/rhizo_004.tif",
     "label_path": "train/nnUNet_raw/Dataset111_Rhizo24/labelsTr/rhizo_004.tif",
-    "accuracy": 0.8907620457910924,
-    "precision": 1.0,
-    "IoU": 0.8907620457910924,
-    "Dice": 0.9422254352671847,
-    "recall": 0.8907620457910924
+    "accuracy": 0.9999736799084519,
+    "precision": 0.9884379959192927,
+    "IoU": 0.9818714108771535,
+    "Dice": 0.9908527924549742,
+    "recall": 0.9932794167900673
 }

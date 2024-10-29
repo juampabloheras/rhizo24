@@ -19,14 +19,14 @@ TASK_NAME_OR_ID=111
 CONFIGURATION=2d
 FOLD=0
 PLAN=nnUNetResEncUNetMPlans
-TRAINER=nnUNetTrainer_2epochs
+TRAINER=nnUNetTrainer_750epochs
 
 nnUNetv2_predict -i $INPUT_FOLDER -o $OUTPUT_FOLDER -d $TASK_NAME_OR_ID -c $CONFIGURATION -f $FOLD -p $PLAN -tr $TRAINER
 
 RAW_IMAGE_FOLDER=$INPUT_FOLDER
 GT_LABELS_FOLDER=${TRAIN_DATASET_PATH}/labelsTr
 PREDS_FOLDER=$OUTPUT_FOLDER
-NAME_CONVERSION_PATH=rhizonet_nnUNet_name_conversion.json
+NAME_CONVERSION_PATH=scripts/rhizonet_nnUNet_name_conversion.json
 OUT_DIR=final_results/metrics/split_80_10
 
 python3 scripts/utils.py process_and_visualize_subjects $RAW_IMAGE_FOLDER $GT_LABELS_FOLDER $PREDS_FOLDER $NAME_CONVERSION_PATH $OUT_DIR

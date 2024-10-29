@@ -110,7 +110,7 @@ def nnUNet_name_conversion(data_dir="data", output_dir="train/nnUNet_raw"):
         transformed_image.save(os.path.join(transformed_images_paths, image_save_name))
         transformed_label.save(os.path.join(transformed_labels_paths, labels_save_name))
 
-    file_path = os.path.join(os.getcwd(), f"rhizonet_nnUNet_name_conversion.json")
+    file_path = os.path.join(os.getcwd(), 'scripts', f"rhizonet_nnUNet_name_conversion.json")
     with open(file_path, "w") as json_file:
         json.dump(names_dict, json_file, indent=4)
 
