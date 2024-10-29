@@ -3,26 +3,26 @@
 This project relies on `nnUNet` along with other dependencies specified in a Conda environment file. The setup has been tested on a Linux environment and assumes specific package versions for compatibility. Follow the instructions below to set up everything required for training and evaluation:
 
 
-### First, clone this repository and navigate to the base directory
+#### First, clone this repository and navigate to the base directory
 ```shell
 git clone https://github.com/juampabloheras/rhizo24.git
 cd rhizo24
 ```
 
-### Pull nnUNet as a submodule and ensure it's up to date
+#### Pull `nnUNet` as a submodule
 ```shell
 git submodule add https://github.com/MIC-DKFZ/nnUNet.git nnUNet
 ```
 
 
-*[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)* **(Recommended)** - Create and activate a `nnunet_env` conda environment using the provided environment definition:
+*[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)* **(Recommended)** - Create and activate a `nnunet_env` conda environment using the environment definition provided in `conda.yaml`:
 
 ```shell
 conda env create -f conda.yaml
 conda activate nnunet_env
 ```
 
-### Verification
+#### Verification
 
 To verify a successful installation, including checking CUDA compatibility, run the following command:
 
