@@ -1,4 +1,4 @@
-name: nnunet_env_2
+name: nnunet_env
 channels:
   - defaults
   - pytorch

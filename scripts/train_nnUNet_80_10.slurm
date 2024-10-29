@@ -2,12 +2,12 @@
 #SBATCH -N 1 
 #SBATCH -C gpu  
 #SBATCH -G 1
-#SBATCH -q debug  
+#SBATCH -q regular  
 #SBATCH -J train-nnunet
-#SBATCH --time=00:30:00  
+#SBATCH --time=06:30:00  
 #SBATCH -A m4055 
-#SBATCH --error=train_error_slurm.txt
-#SBATCH --output=train_output_slurm.txt
+#SBATCH --error=train_80_10_error_slurm.txt
+#SBATCH --output=train_80_10_output_slurm.txt
 
 #!/bin/bash
 source ~/.bashrc
@@ -39,6 +39,6 @@ echo "Preprocessing successful!"
 cp scripts/splits_final_80_10.json $PREPROCESSED_DATA_PATH/splits_final
 
 
-CUDA_VISIBLE_DEVICES=0 nnUNetv2_train -p nnUNetResEncUNetMPlans  --c $DATASET_ID 2d 0 -tr nnUNetTrainer_2epochs
+CUDA_VISIBLE_DEVICES=0 nnUNetv2_train -p nnUNetResEncUNetMPlans  --c $DATASET_ID 2d 0 -tr nnUNetTrainer_750epochs
 
 
