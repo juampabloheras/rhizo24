@@ -1,6 +1,8 @@
+## Project Description
+
 
 ## Installation
-This project relies on `nnUNet` along with other dependencies specified in a Conda environment file. The setup has been tested on a Linux environment and assumes specific package versions for compatibility. Follow the instructions below to set up everything required for training and evaluation:
+This project relies on `[nnUNet](https://github.com/MIC-DKFZ/nnUNet/tree/master)` along with other dependencies specified in a Conda environment file. The setup has been tested on a Linux environment and assumes specific package versions for compatibility. Follow the instructions below to set up everything required for training and evaluation:
 
 
 #### First, clone this repository and navigate to the base directory
@@ -11,8 +13,9 @@ cd rhizo24
 
 #### Pull `nnUNet` as a submodule
 ```shell
-git submodule add https://github.com/MIC-DKFZ/nnUNet.git nnUNet
+git clone https://github.com/MIC-DKFZ/nnUNet.git
 ```
+All nnU-Net commands have a `-h` option which gives information on how to use them.
 
 
 *[conda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)* **(Recommended)** - Create and activate a `nnunet_env` conda environment using the environment definition provided in `conda.yaml`:
