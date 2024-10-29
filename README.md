@@ -1,6 +1,6 @@
 ## nnU-Net for plant root segmentation
 <div align="center">
-  <img width="687" alt="image" src="https://github.com/user-attachments/assets/14f4dbb0-9f1c-42ce-b4a3-fe20c3fabaa9">
+  <img width="687" alt="Screenshot 2024-10-23 at 5 08 28 PM" src="https://github.com/user-attachments/assets/257452dd-f265-4833-8e98-e549a5a06d6a">
 </div>
 
 Biofuels represent renewable energy sources extracted from organic materials and are an eco-friendly alternative to conventional fossil fuels. Gaining knowledge of plant roots can support research on optimizing nutrient accessibility, improved nutrient absorption, and enhanced plant growth and biomass yield, which are determinants of crop productivity and sustainability[^1]. Flatbed scanners are commonly used to image roots, but require manual segmentation of plant roots for analysis. To scale the current methods to larger studies, an automated analysis is desirable; however, the complex nature of root structures and image noise makes this difficult. To this end, Sordo et al. introduced RhizoNet[^2], a deep learning-based workflow based on a custom residual U-Net and a convex hull post processing to semantically segment plant root scans. 
