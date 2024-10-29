@@ -54,7 +54,7 @@ This command will confirm that `nnU-Net` was imported successfully and whether C
 
 ## Training Instructions
 
-To train the model with an 80-20 validation split or a 5-fold cross-validation split on NERSC, use the appropriate `sbatch` command with the provided Slurm scripts.
+To train the model with an 80-20 validation split or a 5-fold cross-validation split on NERSC, use the appropriate `sbatch` command with the provided Slurm scripts. During training, a `train` directory is created, where all model training is logged.
 
 **NOTE: Make sure you’re in the `rhizo24` directory when running the following commands in your bash terminal:**
 
@@ -73,7 +73,7 @@ To train the model with an 80-20 validation split or a 5-fold cross-validation s
 
 ## Inference Instructions
 
-After training, to run inference on NERSC with either the 80-20 validation split or the 5-fold cross-validation setup, use the appropriate `sbatch` command with the provided Slurm scripts.
+After training, to run inference on NERSC with either the 80-20 validation split or the 5-fold cross-validation setup, use the appropriate `sbatch` command with the provided Slurm scripts. During inference, a `final_results` directory is created, where all inference results are logged.
 
 ### Commands
 
